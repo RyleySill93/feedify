@@ -1,6 +1,6 @@
 # Feedify
 
-![feedify](/docs/feedify.png | width=100)
+![feedify](/docs/feedify.png =100x)
 
 Feedify is a mobile news reader app built with React Native for a coding challenge.
 The app uses the [News API](https://newsapi.org/) to gather news sources and articles
