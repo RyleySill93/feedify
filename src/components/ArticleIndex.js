@@ -2,37 +2,37 @@ import React from 'react';
 import { View, Text, ListView } from 'react-native';
 import ListItem from './ListItem';
 import { connect } from 'react-redux';
-import { fetchChannels } from '../actions/ChannelActions';
+import { fetchArticles } from '../actions/ArticleActions';
 
-class ChannelIndex extends React.Component {
+class ArticleIndex extends React.Component {
   constructor(props) {
     super(props);
     this.renderRow = this.renderRow.bind(this);
   }
 
   componentWillMount() {
-    this.createDataSource(this.props.channels);
+    this.createDataSource(this.props.articles);
   }
 
   componentDidMount() {
-    this.props.fetchChannels();
+    this.props.fetchArticles();
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.channels.length !== nextProps.channels.length) {
-      this.createDataSource(nextProps.channels);
+    if (this.props.articles.length !== nextProps.articles.length) {
+      this.createDataSource(nextProps.articles);
     }
   }
 
-  createDataSource (channels) {
+  createDataSource (articles) {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
-    this.dataSource = ds.cloneWithRows(channels);
+    this.dataSource = ds.cloneWithRows(articles);
   }
 
-  renderRow (channel) {
-    return <ListItem channel={channel} channels={this.props.channels} />;
+  renderRow (article) {
+    return <ListItem article={article} articles={this.props.articles} />;
   }
 
   render() {
@@ -50,11 +50,11 @@ class ChannelIndex extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  channels: state.channels
+  articles: state.articles
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchChannels: () => dispatch(fetchChannels())
+  fetchArticles: () => dispatch(fetchArticles())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChannelIndex);
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleIndex);

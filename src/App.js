@@ -5,7 +5,7 @@ import Router from './Router';
 import ReduxThunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers';
-import Root from './components/Root';
+import ChannelIndex from './components/ChannelIndex';
 
 class App extends React.Component {
 
@@ -17,11 +17,13 @@ class App extends React.Component {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     return (
       <Provider store={store}>
-        <View style={{flex: 1}}>
+        <View>
           <Router />
-          <Root store={store}/>
+          <ChannelIndex store={store}/>
         </View>
       </Provider>
     );
   }
 }
+
+export default App;
