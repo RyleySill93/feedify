@@ -17,7 +17,7 @@ const RouterComponent = (props) => {
       <Scene
         hideNavBar={false}
         key="articleIndex"
-        component={ArticleIndex}
+        component={ChannelIndex}
         title="Channel"
         />
     </Router>

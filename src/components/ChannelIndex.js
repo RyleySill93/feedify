@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Text, ListView } from 'react-native';
 import ListItem from './ListItem';
+import ArticleItem from './ArticleItem';
 import { connect } from 'react-redux';
 import { fetchChannels } from '../actions/ChannelActions';
+import { fetchArticles } from '../actions/ArticleActions';
 
 class ChannelIndex extends React.Component {
   constructor(props) {
@@ -11,15 +13,28 @@ class ChannelIndex extends React.Component {
   }
 
   componentWillMount() {
-    this.createDataSource(this.props.channels);
+    const { channel, channels } = this.props;
+    if (channel) {
+      this.createDataSource(this.props.articles);
+    } else {
+      this.createDataSource(this.props.channels);
+    }
   }
 
   componentDidMount() {
-    this.props.fetchChannels();
+    const { channel, channels } = this.props;
+    if (channel) {
+      this.props.fetchArticles(this.props.channel);
+    } else {
+      this.props.fetchChannels();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.channels.length !== nextProps.channels.length) {
+    const { channel, channels } = this.props;
+    if (channel) {
+      this.createDataSource(nextProps.articles);
+    } else {
       this.createDataSource(nextProps.channels);
     }
   }
@@ -31,8 +46,14 @@ class ChannelIndex extends React.Component {
     this.dataSource = ds.cloneWithRows(channels);
   }
 
-  renderRow (channel) {
-    return <ListItem channel={channel} channels={this.props.channels} />;
+  renderRow (item) {
+    const { channel, channels } = this.props;
+    if (channel) {
+      return <ArticleItem article={item} articles={this.props.articles} />;
+    } else {
+      return <ListItem channel={item} channels={this.props.channels} />;
+    }
+
   }
 
   render() {
@@ -56,11 +77,13 @@ const styles = {
 };
 
 const mapStateToProps = state => ({
-  channels: state.channels
+  channels: state.channels,
+  articles: state.articles
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchChannels: () => dispatch(fetchChannels())
+  fetchChannels: () => dispatch(fetchChannels()),
+  fetchArticles: (source) => dispatch(fetchArticles(source))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChannelIndex);
