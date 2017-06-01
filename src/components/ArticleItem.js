@@ -1,7 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+
+const NO_IMAGE = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/' +
+  'ac/No_image_available.svg/600px-No_image_available.svg.png';
 
 class ArticleItem extends React.Component {
   constructor(props) {
@@ -14,7 +16,7 @@ class ArticleItem extends React.Component {
       <View style={styles.itemStyle}>
         <Image
           style={styles.imageStyle}
-          source={{uri: article.urlToImage || ""}}
+          source={{uri: article.urlToImage || NO_IMAGE}}
         />
       <View style={styles.contentStyle}>
         <Text style={styles.titleStyle}>{article.title || ""}</Text>

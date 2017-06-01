@@ -1,4 +1,4 @@
-import { RECEIVE_CHANNELS, RECEIVE_CURRENT_CHANNEL } from '../actions/ChannelActions';
+import { RECEIVE_CHANNELS } from '../actions/ChannelActions';
 
 export default (state = [], action) => {
   switch(action.type) {

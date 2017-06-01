@@ -1,10 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { receiveCurrentChannel } from '../actions/ChannelActions';
 
-class ListItem extends React.Component {
+class ChannelItem extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -55,8 +53,4 @@ const styles = {
   }
 };
 
-const mapDispatchToProps = dispatch => ({
-  receiveCurrentChannel: (channel) => dispatch(receiveCurrentChannel(channel))
-});
-
-export default connect(null, mapDispatchToProps)(ListItem);
+export default ChannelItem;
