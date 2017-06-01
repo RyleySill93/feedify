@@ -8,26 +8,20 @@ import ArticleIndex from './components/ArticleIndex';
 const RouterComponent = (props) => {
   return (
     <Router>
-      <Scene key="main">
-        <Scene
-          hideNavBar={false}
-          key="channelIndex"
-          component={ChannelIndex}
-          title="Feed"
-          />
-        <Scene
-          hideNavBar={false}
-          key="articleIndex"
-          component={ArticleIndex}
-          title="Channel"
-          />
-      </Scene>
+      <Scene
+        hideNavBar={false}
+        key="channelIndex"
+        component={ChannelIndex}
+        title="Feed"
+        />
+      <Scene
+        hideNavBar={false}
+        key="articleIndex"
+        component={ArticleIndex}
+        title="Channel"
+        />
     </Router>
   );
 };
 
-const mapStateToProps = state => ({
-  currentArticle: state.currentArticle
-});
-
-export default connect(mapStateToProps, null)(RouterComponent);
+export default connect(null, null)(RouterComponent);

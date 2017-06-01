@@ -17,10 +17,7 @@ class App extends React.Component {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     return (
       <Provider store={store}>
-        <View>
-          <Router />
-          <ChannelIndex store={store}/>
-        </View>
+        <Router />
       </Provider>
     );
   }

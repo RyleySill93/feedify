@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { receiveCurrentChannel } from '../actions/ChannelActions';
 
 class ListItem extends React.Component {
   constructor(props) {
@@ -9,25 +11,18 @@ class ListItem extends React.Component {
 
   onPress() {
     const { channel, article } = this.props;
-    if (channel) {
-      Actions.articleIndex();
-    }
+    Actions.articleIndex({ channel: channel.id });
   }
 
   render() {
-    const { channel, article } = this.props;
-    let item = null;
-    if (!channel) {
-      item = article;
-    } else {
-      item = channel;
-    }
+    const { channel } = this.props;
+
     return (
       <TouchableOpacity onPress={this.onPress.bind(this)}>
         <View style={styles.itemStyle}>
-          <Text style={styles.titleStyle}>{item.name}</Text>
+          <Text style={styles.titleStyle}>{channel.name || ""}</Text>
           <Text style={styles.bodyStyle} numberOfLines={3}>
-            {item.description}
+            {channel.description || ""}
           </Text>
         </View>
       </TouchableOpacity>
@@ -47,7 +42,7 @@ const styles = {
   titleStyle: {
     fontSize: 15,
     paddingLeft: 15,
-    paddingRight: 100,
+    paddingRight: 15,
     paddingBottom: 5,
     fontWeight: '900',
     color: '#555459'
@@ -60,4 +55,8 @@ const styles = {
   }
 };
 
-export default ListItem;
+const mapDispatchToProps = dispatch => ({
+  receiveCurrentChannel: (channel) => dispatch(receiveCurrentChannel(channel))
+});
+
+export default connect(null, mapDispatchToProps)(ListItem);

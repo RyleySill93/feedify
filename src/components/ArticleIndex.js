@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, ListView } from 'react-native';
-import ListItem from './ListItem';
+import ArticleItem from './ArticleItem';
 import { connect } from 'react-redux';
 import { fetchArticles } from '../actions/ArticleActions';
 
@@ -15,13 +15,11 @@ class ArticleIndex extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchArticles();
+    this.props.fetchArticles(this.props.channel);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.articles.length !== nextProps.articles.length) {
-      this.createDataSource(nextProps.articles);
-    }
+    this.createDataSource(nextProps.articles);
   }
 
   createDataSource (articles) {
@@ -32,12 +30,12 @@ class ArticleIndex extends React.Component {
   }
 
   renderRow (article) {
-    return <ListItem article={article} articles={this.props.articles} />;
+    return <ArticleItem article={article} articles={this.props.articles} />;
   }
 
   render() {
     return (
-      <View>
+      <View style={styles.viewStyle}>
         <ListView
           style={{marginBottom: 48}}
           enableEmptySections
@@ -49,12 +47,18 @@ class ArticleIndex extends React.Component {
   }
 }
 
+const styles = {
+  viewStyle: {
+    paddingTop: 65
+  }
+};
+
 const mapStateToProps = state => ({
   articles: state.articles
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchArticles: () => dispatch(fetchArticles())
+  fetchArticles: (source) => dispatch(fetchArticles(source))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArticleIndex);

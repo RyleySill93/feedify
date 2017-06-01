@@ -37,7 +37,7 @@ class ChannelIndex extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.viewStyle}>
         <ListView
           style={{marginBottom: 48}}
           enableEmptySections
@@ -48,6 +48,12 @@ class ChannelIndex extends React.Component {
     );
   }
 }
+
+const styles = {
+  viewStyle: {
+    paddingTop: 65
+  }
+};
 
 const mapStateToProps = state => ({
   channels: state.channels

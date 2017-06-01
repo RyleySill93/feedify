@@ -12,8 +12,3 @@ export const receiveChannels = (allChannels) => ({
   type: RECEIVE_CHANNELS,
   allChannels
 });
-
-export const receiveCurrentChannel = (channel) => ({
-  type: RECEIVE_CHANNELS,
-  channel
-});
